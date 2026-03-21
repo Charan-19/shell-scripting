@@ -84,8 +84,8 @@ status=$(mongosh --host mongodb.sachade.shop --eval 'db.getMongo().getDBNames().
 
 if [ $status -lt 0 ]
 then
-    mongosh --host mongodb.sachade.shop </app/db/master-data.js
-    $VALIDATE $? "Loading catalogue data to MongoDB" 
+    mongosh --host mongodb.sachade.shop </app/db/master-data.js &>>$LOG_FILE
+    VALIDATE $? "Loading catalogue data to MongoDB" 
 else
     echo -e "Catalogue data is already loaded... $Y skipping $N"
 fi
