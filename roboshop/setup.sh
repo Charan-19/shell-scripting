@@ -2,7 +2,7 @@
 AMI_ID="ami-0220d79f3f480ecf5"
 SECURITY_GROUP_ID="sg-0da12a545f9ea850a"
 # INSTANCES=("frontend" "catalogue" "user" "cart" "shipping" "payment" "dispatch" "mongodb" "redis" "rabbitmq" "mysql")
-INSTANCES=("catalogue")
+INSTANCES=("mongodb")
 HOSTED_ZONE_ID="Z10343403HZ2PB1IVOET0"
 DOMAIN_NAME="sachade.shop"
 

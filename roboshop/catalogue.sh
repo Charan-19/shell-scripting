@@ -80,7 +80,7 @@ VALIDATE $? "Copying MongoDB repo file"
 dnf install mongodb-mongosh -y &>>$LOG_FILE
 VALIDATE $? "Installing MongoDB client"
 
-status=$(mongosh --host mongodb.sachade.shop </app/db/master-data.js eval 'db.getMongo().getDBNames().indexOf("catalogue")')
+status=$(mongosh --host mongodb.sachade.shop --eval 'db.getMongo().getDBNames().indexOf("catalogue")')
 
 if [ $status -lt 0 ]
 then
