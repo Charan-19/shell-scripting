@@ -11,10 +11,12 @@ do
     if [ ${INSTANCE} != "frontend" ]
     then
         IP=$(aws ec2 describe-instances --instance-ids ${INSTANCE_ID} --query 'Reservations[0].Instances[0].PrivateIpAddress' --output text)
-        RECORD_NAME = "$INSTANCE.$DOMAIN_NAME"
+        RECORD_NAME="$INSTANCE.$DOMAIN_NAME"
+        echo -e "Record name for ${INSTANCE} is $RECORD_NAME"
     else
         IP=$(aws ec2 describe-instances --instance-ids ${INSTANCE_ID} --query 'Reservations[0].Instances[0].PublicIpAddress' --output text)
-        RECORD_NAME = "$DOMAIN_NAME"
+        RECORD_NAME="$DOMAIN_NAME"
+        echo -e "Record name for frontend is $RECORD_NAME"
     fi
     echo "${INSTANCE} Ip Address: ${IP}"
     aws route53 change-resource-record-sets \
@@ -24,7 +26,7 @@ do
         "Changes": [{
             "Action": "UPSERT",
             "ResourceRecordSet": {
-                "Name": "'${RECORD_NAME}'",
+                "Name": "'$RECORD_NAME'",
                 "Type": "A",
                 "TTL": 1,
                 "ResourceRecords": [
