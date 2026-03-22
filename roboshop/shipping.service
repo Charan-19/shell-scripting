@@ -1,0 +1,15 @@
+[Unit]
+Description=Shipping Service
+
+[Service]
+User=roboshop
+// highlight-start
+Environment=CART_ENDPOINT=cart.sachade.shop:8080
+Environment=DB_HOST=mysql.sachade.shop
+Environment=DB_PORT=3306
+// highlight-end
+ExecStart=/bin/java -jar /app/shipping.jar
+SyslogIdentifier=shipping
+
+[Install]
+WantedBy=multi-user.target
