@@ -79,8 +79,7 @@ VALIDATE $? "Starting shipping service"
 dnf install mysql -y &>>$LOG_FILE
 VALIDATE $? "Installing mysql client"
 
-mysql -h mysql.sachade.shop -uroot -p$MYSQL_ROOT_PASSWORD -e 'use cities'
-VALIDATE $? "Checking cities database"
+mysql -h mysql.sachade.shop -uroot -p$MYSQL_ROOT_PASSWORD -e 'use cities' &>>$LOG_FILE
 
 if [ $? -ne 0 ]
 then
