@@ -33,14 +33,14 @@ VALIDATE(){
 }
 
 dnf module disable nodejs -y &>>$LOG_FILE
-$VALIDATE $? "Disabling nodejs module"
+VALIDATE $? "Disabling nodejs module"
 
 
 dnf module enable nodejs:20 -y &>>$LOG_FILE
-$VALIDATE $? "Enabling nodejs module"
+VALIDATE $? "Enabling nodejs module"
 
 dnf install nodejs -y &>>$LOG_FILE
-$VALIDATE $? "Installing nodejs"
+VALIDATE $? "Installing nodejs"
 
 id roboshop
 if [ $? -ne 0 ]
@@ -52,29 +52,29 @@ else
 fi
 
 mkdir -p /app
-$VALIDATE $? "Creating app directory"
+VALIDATE $? "Creating app directory"
 
 curl -L -o /tmp/cart.zip https://roboshop-artifacts.s3.amazonaws.com/cart-v3.zip
-$VALIDATE $? "Downloading cart code"
+VALIDATE $? "Downloading cart code"
 
 rm -rf /app/*
 cd /app
 
 unzip /tmp/cart.zip &>>$LOG_FILE
-$VALIDATE $? "Extracting cart code"
+VALIDATE $? "Extracting cart code"
  
 npm install &>>$LOG_FILE
-$VALIDATE $? "Installing cart dependencies"
+VALIDATE $? "Installing cart dependencies"
 
 cp $SCRIPT_DIR/cart.service /etc/systemd/system/cart.service &>>$LOG_FILE
-$VALIDATE $? "Copying cart service file"
+VALIDATE $? "Copying cart service file"
 
 systemctl daemon-reload &>>$LOG_FILE
-$VALIDATE $? "Reloading systemd"
+VALIDATE $? "Reloading systemd"
 
 systemctl enable cart 
 systemctl start cart &>>$LOG_FILE
-$VALIDATE $? "Starting cart service"
+VALIDATE $? "Starting cart service"
 
 END_TIME=$(date +%s)
 EXECUTION_TIME=$(($END_TIME - $START_TIME))
