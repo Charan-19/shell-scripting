@@ -44,33 +44,33 @@ then
     exit 1
 fi
 
-if [ ! -d $SOURCE_DIR ]
+if [ ! -d "$SOURCE_DIR" ]
 then
     echo -e "$R Error: source directory $SOURCE_DIR does not exist $N" | tee -a $LOG_FILE
     exit 1
 fi
 
-if [ ! -d $DEST_DIR ]
+if [ ! -d "$DEST_DIR" ]
 then
     echo -e "$R Error: destination directory $DEST_DIR does not exist $N" | tee -a $LOG_FILE
     exit 1
 fi
 
-FILES=$(find $SOURCE_DIR -name "*.log" -mtime +$DAYS)
+FILES=$(find "$SOURCE_DIR" -name "*.log" -mtime +"$DAYS")
 
-if [ -z "$FILES" ]
+if [ -n "$FILES" ]
 then
     echo -e "Files to zip are: $FILES"
     TIMESTAMP=$(date +%F-%H-%M-%S)
     ZIP_FILE="$DEST_DIR/app-logs-$TIMESTAMP.zip"
-    find $SOURCE_DIR -name "*.log" -mtime +$DAYS | zip -@ "$ZIP_FILE"
+    find "$SOURCE_DIR" -name "*.log" -mtime +"$DAYS" | zip -@ "$ZIP_FILE"
 
-    if [ -f $ZIP_FILE ]
+    if [ -f "$ZIP_FILE" ]
     then
         echo -e "$G Log files zipped successfully to $ZIP_FILE $N" | tee -a $LOG_FILE
         while IFS= read -r filepath
         do
-            rm -rf $filepath
+            rm -rf "$filepath"
             VALIDATE $? "Deleting old log file $filepath"
         done <<< "$FILES"
         echo -e "$G Old log files deleted successfully $N" | tee -a $LOG_FILE
