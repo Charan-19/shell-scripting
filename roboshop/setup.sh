@@ -4,6 +4,15 @@ SECURITY_GROUP_ID="sg-0da12a545f9ea850a"
 HOSTED_ZONE_ID="Z10343403HZ2PB1IVOET0"
 DOMAIN_NAME="sachade.shop"
 
+if [ $# -eq 0 ]
+then
+    echo "Error: Please provide atleast one instance name as argument"
+    exit 1
+else
+    echo "Creating EC2 instances for $@"
+fi
+
+
 for INSTANCE in $@
 do
     INSTANCE_ID=$(aws ec2 run-instances --image-id ${AMI_ID}  --instance-type t3.micro --security-group-ids sg-0da12a545f9ea850a --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=${INSTANCE}}]" --query "Instances[0].InstanceId" --output text)
