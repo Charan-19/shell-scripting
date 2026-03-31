@@ -11,7 +11,7 @@ do
     PARTITION=$(echo $line | awk '{print $7}')
     if [ $USAGE -gt $DISK_THRESHOLD ]
     then
-        MSG+="Disk usage on partition $PARTITION is at $USAGE% on server with IP $IP <br>"
+        MSG+="Disk usage on partition $PARTITION is at $USAGE%<br>"
     fi
 
 done <<< $DISK_USAGE
