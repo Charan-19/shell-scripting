@@ -63,7 +63,11 @@ then
     echo -e "Files to zip are: $FILES"
     TIMESTAMP=$(date +%F-%H-%M-%S)
     ZIP_FILE="$DEST_DIR/app-logs-$TIMESTAMP.zip"
-    find "$SOURCE_DIR" -name "*.log" -mmin +"$DAYS" | zip -@ "$ZIP_FILE"
+    (
+        cd "$SOURCE_DIR" || exit 1
+        find . -name "*.log" -mmin +"$DAYS" | sed 's#^\./##' | zip -@ "$ZIP_FILE"
+    )
+    VALIDATE $? "Zipping old log files"
 
     if [ -f "$ZIP_FILE" ]
     then
