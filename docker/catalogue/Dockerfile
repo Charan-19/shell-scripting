@@ -1,5 +1,5 @@
 FROM node:20-alpine3.21
-WORKDIR /app/server
+WORKDIR /opt/server
 COPY package.json .
 COPY *.js .
 RUN npm install
