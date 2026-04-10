@@ -27,13 +27,13 @@ services:
     restart: always
     volumes:
       - redis:/data
-    user:
-      image: saicharan452/user:v1
-      container_name: user
-      restart: always
-      depends_on:
-        - redis
-        - mongodb
+  user:
+    image: saicharan452/user:v1
+    container_name: user
+    restart: always
+    depends_on:
+      - redis
+      - mongodb
   cart:
     image: saicharan452/cart:v1
     container_name: cart
