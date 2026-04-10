@@ -1,0 +1,90 @@
+networks:
+  default:
+    name: roboshop
+    driver: bridge
+volumes:
+  mysql:
+  redis:
+  mongodb:
+  rabbitmq:
+services:
+  mongodb:
+    image: saicharan452/mongodb:v1
+    container_name: mongodb
+    restart: always
+    volumes:
+      - mongodb:/data/db
+    
+    catalogue:
+      image: saicharan452/catalogue:v1
+      container_name: catalogue
+      restart: always
+      depends_on:
+        - mongodb
+    redis:
+      image: redis:7.0
+      container_name: redis
+      restart: always
+      volumes:
+        - redis:/data
+    user:
+      image: saicharan452/user:v1
+      container_name: user
+      restart: always
+      depends_on:
+        - redis
+        - mongodb
+    cart:
+      image: saicharan452/cart:v1
+      container_name: cart
+      restart: always
+      depends_on:
+        - redis
+        - catalogue
+    mysql:
+      image: saicharan452/mysql:v1
+      container_name: mysql
+      restart: always
+      volumes:
+        - mysql:/var/lib/mysql
+    shipping:
+      image: saicharan452/shipping:v1
+      container_name: shipping
+      restart: always
+      depends_on:
+        - mysql
+        - cart
+    rabbitmq:
+      image: rabbitmq:3
+      container_name: rabbitmq
+      restart: always
+      volumes:
+        - rabbitmq:/var/lib/rabbitmq
+    payment:
+      image: saicharan452/payment:v1
+      container_name: payment
+      restart: always
+      environment:
+        CART_HOST: cart
+        CART_PORT: 8080
+        USER_HOST: user
+        USER_PORT: 8080
+        RABBITMQ_HOST: rabbitmq
+        RABBITMQ_USER: roboshop
+        RABBITMQ_PASSWORD: roboshop123
+      depends_on:
+        - rabbitmq
+        - cart
+        - user
+    frontend:
+      image: saicharan452/frontend:v1
+      container_name: frontend
+      restart: always
+      ports:
+        - "80:80"
+      depends_on:
+        - catalogue
+        - user
+        - cart
+        - shipping
+        - payment
