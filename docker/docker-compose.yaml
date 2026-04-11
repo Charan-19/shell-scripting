@@ -35,7 +35,7 @@ services:
       - redis
       - mongodb
   cart:
-    image: saicharan452/cart:v1
+    image: saicharan452/cart:v2
     container_name: cart
     restart: always
     depends_on:
