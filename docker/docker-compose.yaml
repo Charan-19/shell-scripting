@@ -47,6 +47,7 @@ services:
     restart: always
     volumes:
       - mysql:/var/lib/mysql
+      - /tmp/mysql_root_password:/tmp/mysql_root_password
   shipping:
     image: saicharan452/shipping:v3
     container_name: shipping
