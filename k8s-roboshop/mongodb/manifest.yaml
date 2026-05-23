@@ -24,8 +24,7 @@ spec:
      containers:
      - name: mongodb
        image: saicharan452/mongodb:v3
-
-==============service================
+---
 apiVersion: v1
 kind: Service
 metadata:
