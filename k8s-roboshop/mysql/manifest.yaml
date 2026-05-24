@@ -12,37 +12,48 @@ data:
 ---
 apiVersion: apps/v1
 kind: Deployment
+
 metadata:
- name: mysql
- namespace: roboshop
- labels:
-   component: mysql
-   project: roboshop
-   tier: app
+  name: mysql
+  namespace: roboshop
+
+  labels:
+    component: mysql
+    project: roboshop
+    tier: app
+
 spec:
- replicas: 1
- selector:
-   matchLabels:
-     component: mysql
-     project: roboshop
-     tier: app
- template:
-   metadata:
-     labels:
-       component: mysql
-       project: roboshop
-       tier: app
-   spec:
-     containers:
-     - name: mysql
-       image: saicharan452/mysql:v3
-     volumes:
-     - name: mysql-secret
-       secret:
-       secretName: mysql
-       items:
-        - key: MYSQL_ROOT_PASSWORD
-          path: mysql_root_password.txt
+  replicas: 1
+
+  selector:
+    matchLabels:
+      component: mysql
+      project: roboshop
+      tier: app
+
+  template:
+    metadata:
+      labels:
+        component: mysql
+        project: roboshop
+        tier: app
+
+    spec:
+      containers:
+        - name: mysql
+          image: saicharan452/mysql:v3
+
+          volumeMounts:
+            - name: mysql-secret
+              mountPath: /tmp
+
+      volumes:
+        - name: mysql-secret
+          secret:
+            secretName: mysql
+            items:
+              - key: MYSQL_ROOT_PASSWORD
+                path: mysql_root_password.txt
 ---
 apiVersion: v1
 kind: Service
