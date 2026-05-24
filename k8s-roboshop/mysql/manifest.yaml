@@ -44,8 +44,9 @@ spec:
           image: saicharan452/mysql:v3
 
           volumeMounts:
-            - name: mysql-secret
-              mountPath: /tmp
+          - name: mysql-secret
+            mountPath: /tmp/mysql_root_password.txt
+            subPath: mysql_root_password.txt
 
       volumes:
         - name: mysql-secret
