@@ -8,7 +8,7 @@ metadata:
     project: roboshop
     tier: app
 data:
- MYSQL_ROOT_PASSWORD: "Um9ib1Nob3BAMTk="
+ MYSQL_ROOT_PASSWORD: "Um9ib1Nob3BAMQ=="
 ---
 apiVersion: apps/v1
 kind: Deployment
