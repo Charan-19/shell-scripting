@@ -36,13 +36,13 @@ spec:
      containers:
      - name: mysql
        image: saicharan452/mysql:v3
-       volumes:
-       - name: mysql-secret
-         secret:
-          secretName: mysql
-          items:
-            - key: MYSQL_ROOT_PASSWORD
-              path: mysql_root_password.txt
+     volumes:
+     - name: mysql-secret
+       secret:
+       secretName: mysql
+       items:
+        - key: MYSQL_ROOT_PASSWORD
+          path: mysql_root_password.txt
 ---
 apiVersion: v1
 kind: Service
