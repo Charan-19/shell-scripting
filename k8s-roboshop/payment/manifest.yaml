@@ -54,7 +54,7 @@ spec:
       containers:
         - name: payment
           image: saicharan452/payment:v3
-          envfrom:
+          envFrom:
             - secretRef:
                 name: payment
             - configMapRef:
