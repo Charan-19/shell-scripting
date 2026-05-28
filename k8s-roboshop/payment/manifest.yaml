@@ -55,10 +55,11 @@ spec:
         - name: payment
           image: saicharan452/payment:v3
           envFrom:
-            - secretRef:
-                name: payment
             - configMapRef:
                 name: payment
+            - secretRef:
+                name: payment
+            
          
 ---
 apiVersion: v1
