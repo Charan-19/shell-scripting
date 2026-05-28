@@ -12,7 +12,7 @@ data:
  CART_PORT: "8080"
  USER_HOST: "user"
  USER_PORT: "8080"
- RABBITMQ_HOST: "rabbitmq"
+ AMQP_HOST: "rabbitmq"
 ---
 apiVersion: v1
 kind: Secret
@@ -25,8 +25,8 @@ metadata:
     tier: app
 type: Opaque
 data:
- RABBITMQ_USER: "cm9ib3Nob3A="
- RABBITMQ_PASSWORD: "cm9ib3Nob3AxMjM="
+ AMQP_USER: "cm9ib3Nob3A="
+ AMQP_PASS: "cm9ib3Nob3AxMjM="
 ---
 apiVersion: apps/v1
 kind: Deployment

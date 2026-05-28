@@ -6,11 +6,11 @@ metadata:
   labels:
     component: rabbitmq
     project: roboshop
-    tier: app
+    tier: database
 type: Opaque
 data:
- RABBITMQ_USER: "cm9ib3Nob3A="
- RABBITMQ_PASSWORD: "cm9ib3Nob3AxMjM="
+ RABBITMQ_DEFAULT_USER:: "cm9ib3Nob3A="
+ RABBITMQ_DEFAULT_PASS: "cm9ib3Nob3AxMjM="
 ---
 apiVersion: apps/v1
 kind: Deployment
