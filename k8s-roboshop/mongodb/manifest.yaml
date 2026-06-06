@@ -22,31 +22,31 @@ spec:
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
- name: mongodb
- namespace: roboshop
- labels:
-   component: mongodb
-   project: roboshop
-   tier: database
+  name: mongodb
+  namespace: roboshop
+  labels:
+    component: mongodb
+    project: roboshop
+    tier: database
 spec:
- selector:
-   matchLabels:
-     component: mongodb
-     project: roboshop
-     tier: database
- replicas: 3
- serviceName: "mongodb-headless"
- template:
-   metadata:
-     labels:
-       component: mongodb
-       project: roboshop
-       tier: database
-   spec:
-     containers:
-     - name: mongodb
-       image: saicharan452/mongodb:v3
-       volumeMounts:
+  selector:
+    matchLabels:
+      component: mongodb
+      project: roboshop
+      tier: database
+  replicas: 3
+  serviceName: "mongodb-headless"
+  template:
+    metadata:
+      labels:
+        component: mongodb
+        project: roboshop
+        tier: database
+    spec:
+      containers:
+      - name: mongodb
+        image: saicharan452/mongodb:v3
+        volumeMounts:
         - name: mongodb-data
           mountPath: /data/db
   # This is nothing but PVC, you can directly create here
