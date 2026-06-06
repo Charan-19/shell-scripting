@@ -46,9 +46,9 @@ spec:
      containers:
      - name: redis
        image: redis:7.0
-               volumeMounts:
+       volumeMounts:
         - name: redis-data
-          mountPath: /data/db
+          mountPath: /data
   # This is nothing but PVC, you can directly create here
    volumeClaimTemplates:
     - metadata:
