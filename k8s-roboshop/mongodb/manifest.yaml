@@ -29,13 +29,13 @@ metadata:
    project: roboshop
    tier: database
 spec:
- serviceName: mongodb-headless
  replicas: 3
  selector:
    matchLabels:
      component: mongodb
      project: roboshop
      tier: database
+ serviceName: "mongodb-headless"
  template:
    metadata:
      labels:
