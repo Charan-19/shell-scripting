@@ -40,7 +40,7 @@ spec:
        envFrom:
         - configMapRef:
             name: catalogue
-       resource:
+       resources:
          limits:
            memory: "128Mi"
            cpu: "50m"
