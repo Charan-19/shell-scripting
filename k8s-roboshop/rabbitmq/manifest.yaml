@@ -62,7 +62,7 @@ spec:
        envFrom:
          - secretRef:
              name: rabbitmq
-        volumeMounts:
+       volumeMounts:
         - name: rabbitmq-data
           mountPath: /var/lib/rabbitmq
   # This is nothing but PVC, you can directly create here
