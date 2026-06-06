@@ -66,4 +66,23 @@ spec:
     - protocol: TCP
       port: 8080
       targetPort: 8080
-
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: catalogue-hpa
+  namespace: roboshop
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: catalogue   # Name of the deployment to scale
+  minReplicas: 2   # Minimum number of pods
+  maxReplicas: 10  # Maximum number of pods
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 10  # Target average CPU utilization percentage
