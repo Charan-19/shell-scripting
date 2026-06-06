@@ -1,4 +1,24 @@
 apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-headless
+  namespace: roboshop
+  labels:
+    component: mysql
+    project: roboshop
+    tier: app
+spec:
+  clusterIP: None
+  selector:
+    component: mysql
+    project: roboshop
+    tier: app
+  ports:
+    - protocol: TCP
+      port: 3306
+      targetPort: 3306
+---
+apiVersion: v1
 kind: Secret
 metadata:
   name: mysql
@@ -11,50 +31,54 @@ data:
  MYSQL_ROOT_PASSWORD: "Um9ib1Nob3BAMQ=="
 ---
 apiVersion: apps/v1
-kind: Deployment
-
+kind: StatefulSet
 metadata:
   name: mysql
   namespace: roboshop
-
   labels:
     component: mysql
     project: roboshop
     tier: app
-
 spec:
-  replicas: 1
-
+  serviceName: "mysql-headless"
+  replicas: 2
   selector:
     matchLabels:
       component: mysql
       project: roboshop
       tier: app
-
   template:
     metadata:
       labels:
         component: mysql
         project: roboshop
         tier: app
-
     spec:
       containers:
         - name: mysql
           image: saicharan452/mysql:v3
-
           volumeMounts:
           - name: mysql-secret
             mountPath: /tmp/mysql_root_password.txt
             subPath: mysql_root_password.txt
-
+          - name: mysql-data
+            mountPath: /var/lib/mysql
       volumes:
-        - name: mysql-secret
+        - name: mysql-data
           secret:
             secretName: mysql
             items:
               - key: MYSQL_ROOT_PASSWORD
                 path: mysql_root_password.txt
+  volumeClaimTemplates:
+  - metadata:
+      name: mysql-data
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      storageClassName: "roboshop-ebs"
+      resources:
+        requests:
+          storage: 2Gi
 ---
 apiVersion: v1
 kind: Service

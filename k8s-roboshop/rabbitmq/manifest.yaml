@@ -1,4 +1,24 @@
 apiVersion: v1
+kind: Service
+metadata:
+  name: rabbitmq-headless
+  namespace: roboshop
+  labels:
+    component: rabbitmq
+    project: roboshop
+    tier: database
+spec:
+  clusterIP: None
+  selector:
+    component: rabbitmq
+    project: roboshop
+    tier: database
+  ports:
+    - protocol: TCP
+      port: 5672
+      targetPort: 5672
+---
+apiVersion: v1
 kind: Secret
 metadata:
   name: rabbitmq
@@ -13,7 +33,7 @@ data:
  RABBITMQ_DEFAULT_PASS: "cm9ib3Nob3AxMjM="
 ---
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
  name: rabbitmq
  namespace: roboshop
@@ -22,7 +42,8 @@ metadata:
    project: roboshop
    tier: database
 spec:
- replicas: 1
+ serviceName: "rabbitmq-headless"
+ replicas: 2
  selector:
    matchLabels:
      component: rabbitmq
@@ -41,6 +62,19 @@ spec:
        envFrom:
          - secretRef:
              name: rabbitmq
+        volumeMounts:
+        - name: rabbitmq-data
+          mountPath: /var/lib/rabbitmq
+  # This is nothing but PVC, you can directly create here
+ volumeClaimTemplates:
+  - metadata:
+      name: rabbitmq-data
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      storageClassName: "roboshop-ebs"
+      resources:
+        requests:
+          storage: 2Gi
 ---
 apiVersion: v1
 kind: Service
