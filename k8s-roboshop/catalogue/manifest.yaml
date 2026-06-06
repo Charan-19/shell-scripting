@@ -41,10 +41,10 @@ spec:
         - configMapRef:
             name: catalogue
        resources:
-         limits:
+         requests:
            memory: "128Mi"
            cpu: "50m"
-         requests:
+         limits:
            memory: "256Mi"
            cpu: "100m"
 ---
