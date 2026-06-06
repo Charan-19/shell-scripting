@@ -50,7 +50,7 @@ spec:
         - name: mongodb-data
           mountPath: /data/db
   # This is nothing but PVC, you can directly create here
-   volumeClaimTemplates:
+  volumeClaimTemplates:
     - metadata:
         name: mongodb-data
       spec:
