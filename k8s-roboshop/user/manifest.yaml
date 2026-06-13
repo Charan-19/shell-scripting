@@ -41,6 +41,13 @@ spec:
        envFrom:
         - configMapRef:
             name: user
+       resources:
+         requests:
+           memory: "128Mi"
+           cpu: "50m"
+         limits:
+           memory: "256Mi"
+           cpu: "100m"
 ---
 apiVersion: v1
 kind: Service
@@ -60,4 +67,23 @@ spec:
     - protocol: TCP
       port: 8080
       targetPort: 8080
-
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: user-hpa
+  namespace: roboshop
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: user   # Name of the deployment to scale
+  minReplicas: 2   # Minimum number of pods
+  maxReplicas: 10  # Maximum number of pods
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 10  # Target average CPU utilization percentage
