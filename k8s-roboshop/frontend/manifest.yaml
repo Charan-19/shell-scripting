@@ -103,13 +103,6 @@ spec:
               mountPath: /etc/nginx/nginx.conf
               subPath: nginx.conf
               readOnly: true
-      volumes:
-        - name: nginx-config
-          configMap:
-            name: frontend
-            items:
-              - key: nginx.conf
-                path: nginx.conf
           resources:
             requests:
               memory: "128Mi"
@@ -117,6 +110,14 @@ spec:
             limits:
               memory: "256Mi"
               cpu: "100m"
+      volumes:
+        - name: nginx-config
+          configMap:
+            name: frontend
+            items:
+              - key: nginx.conf
+                path: nginx.conf
+          
          
 ---
 apiVersion: v1
