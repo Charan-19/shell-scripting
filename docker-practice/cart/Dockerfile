@@ -1,0 +1,9 @@
+FROM node:20
+WORKDIR /opt/server
+COPY package.json .
+RUN npm install
+COPY *.js .
+ENV REDIS_HOST = "redis" \
+    CAATALOGUE_HOST = "catalogue" \
+    CATALOGUE_PORT = "8080" \
+CMD ["node", "server.js"]
