@@ -16,7 +16,7 @@ services:
     image: redis:7.0
     container_name: redis
   user:
-    image: saicharan452/user:1.0
+    image: saicharan452/users:1.0
     container_name: user
     depends_on:
       - redis
@@ -40,8 +40,8 @@ services:
     image: rabbitmq:3
     container_name: rabbitmq
     environment:
-      - RABBITMQ_DEFAULT_USER=user
-      - RABBITMQ_DEFAULT_PASS=Roboshop@19
+      - RABBITMQ_DEFAULT_USER:Roboshop
+      - RABBITMQ_DEFAULT_PASS:Roboshop@19
   payment:
     image: saicharan452/payment:1.0
     container_name: payment
