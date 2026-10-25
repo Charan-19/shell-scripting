@@ -57,3 +57,12 @@ services:
       - cart
       - user
       - rabbitmq
+  frontend:
+    image: saicharan452/frontend:1.0
+    container_name: frontend
+    depends_on:
+      - catalogue
+      - user
+      - cart
+      - shipping
+      - payment
