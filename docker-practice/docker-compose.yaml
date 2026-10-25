@@ -51,7 +51,7 @@ services:
       - USER_HOST=user
       - USER_PORT=8080
       - AMQP_HOST=rabbitmq
-      - AMQP_USER=user
+      - AMQP_USER=Roboshop
       - AMQP_PASS=Roboshop@19
     depends_on:
       - cart
