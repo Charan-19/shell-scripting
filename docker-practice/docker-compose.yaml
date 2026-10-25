@@ -53,7 +53,7 @@ services:
       - AMQP_HOST=rabbitmq
       - AMQP_USER=user
       - AMQP_PASS=Roboshop@19
-    deqpends_on:
+    depends_on:
       - cart
       - user
       - rabbitmq
