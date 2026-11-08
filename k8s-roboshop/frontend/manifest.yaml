@@ -97,7 +97,7 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: saicharan452/frontend:v3
+          image: saicharan452/frontend:2.0
           volumeMounts:
             - name: nginx-config
               mountPath: /etc/nginx/nginx.conf

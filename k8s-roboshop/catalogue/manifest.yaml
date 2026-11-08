@@ -36,7 +36,7 @@ spec:
    spec:
      containers:
      - name: catalogue
-       image: saicharan452/catalogue:v3
+       image: saicharan452/catalogue:2.0
        envFrom:
         - configMapRef:
             name: catalogue

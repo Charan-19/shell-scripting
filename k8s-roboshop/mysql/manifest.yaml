@@ -56,29 +56,29 @@ spec:
     spec:
       containers:
         - name: mysql
-          image: saicharan452/mysql:v3
+          image: saicharan452/mysql:2.0
           volumeMounts:
           - name: mysql-secret
             mountPath: /tmp/mysql_root_password.txt
             subPath: mysql_root_password.txt
           - name: mysql-data
             mountPath: /var/lib/mysql
-      volumes:
-        - name: mysql-secret 
-          secret:
-            secretName: mysql
-            items:
-              - key: MYSQL_ROOT_PASSWORD
-                path: mysql_root_password.txt
-  volumeClaimTemplates:
-  - metadata:
-      name: mysql-data
-    spec:
-      accessModes: [ "ReadWriteOnce" ]
-      storageClassName: "roboshop-ebs"
-      resources:
-        requests:
-          storage: 2Gi
+  #     volumes:
+  #       - name: mysql-secret 
+  #         secret:
+  #           secretName: mysql
+  #           items:
+  #             - key: MYSQL_ROOT_PASSWORD
+  #               path: mysql_root_password.txt
+  # volumeClaimTemplates:
+  # - metadata:
+  #     name: mysql-data
+  #   spec:
+  #     accessModes: [ "ReadWriteOnce" ]
+  #     storageClassName: "roboshop-ebs"
+  #     resources:
+  #       requests:
+  #         storage: 2Gi
 ---
 apiVersion: v1
 kind: Service
