@@ -40,7 +40,7 @@ metadata:
     project: roboshop
     tier: app
 spec:
-  serviceName: "mysql-headless"
+  serviceName: mysql-headless
   replicas: 2
   selector:
     matchLabels:
