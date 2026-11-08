@@ -45,7 +45,7 @@ spec:
     spec:
       containers:
       - name: mongodb
-        image: saicharan452/mongodb:2.0
+        image: saicharan452/mongodb:3.0
   #       volumeMounts:
   #       - name: mongodb-data
   #         mountPath: /data/db
