@@ -31,7 +31,7 @@ data:
  MYSQL_ROOT_PASSWORD: "Um9ib1Nob3BAMQ=="
 ---
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: mysql
   namespace: roboshop
