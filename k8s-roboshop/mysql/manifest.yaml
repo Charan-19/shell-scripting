@@ -70,15 +70,15 @@ spec:
             items:
               - key: MYSQL_ROOT_PASSWORD
                 path: mysql_root_password.txt
-  # volumeClaimTemplates:
-  # - metadata:
-  #     name: mysql-data
-  #   spec:
-  #     accessModes: [ "ReadWriteOnce" ]
-  #     storageClassName: "roboshop-ebs"
-  #     resources:
-  #       requests:
-  #         storage: 2Gi
+  volumeClaimTemplates:
+  - metadata:
+      name: mysql-data
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      storageClassName: "roboshop-ebs"
+      resources:
+        requests:
+          storage: 2Gi
 ---
 apiVersion: v1
 kind: Service

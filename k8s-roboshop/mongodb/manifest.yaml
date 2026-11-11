@@ -46,19 +46,19 @@ spec:
       containers:
       - name: mongodb
         image: saicharan452/mongodb:2.0
-  #       volumeMounts:
-  #       - name: mongodb-data
-  #         mountPath: /data/db
-  # # This is nothing but PVC, you can directly create here
-  # volumeClaimTemplates:
-  #   - metadata:
-  #       name: mongodb-data
-  #     spec:
-  #       accessModes: [ "ReadWriteOnce" ]
-  #       storageClassName: "roboshop-ebs"
-  #       resources:
-  #         requests:
-  #           storage: 2Gi
+        volumeMounts:
+        - name: mongodb-data
+          mountPath: /data/db
+  # This is nothing but PVC, you can directly create here
+  volumeClaimTemplates:
+    - metadata:
+        name: mongodb-data
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        storageClassName: "roboshop-ebs"
+        resources:
+          requests:
+            storage: 2Gi
 ---
 apiVersion: v1
 kind: Service

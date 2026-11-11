@@ -62,19 +62,19 @@ spec:
        envFrom:
          - secretRef:
              name: rabbitmq
-#        volumeMounts:
-#         - name: rabbitmq-data
-#           mountPath: /var/lib/rabbitmq
-#   # This is nothing but PVC, you can directly create here
-#  volumeClaimTemplates:
-#   - metadata:
-#       name: rabbitmq-data
-#     spec:
-#       accessModes: [ "ReadWriteOnce" ]
-#       storageClassName: "roboshop-ebs"
-#       resources:
-#         requests:
-#           storage: 2Gi
+       volumeMounts:
+        - name: rabbitmq-data
+          mountPath: /var/lib/rabbitmq
+  # This is nothing but PVC, you can directly create here
+ volumeClaimTemplates:
+  - metadata:
+      name: rabbitmq-data
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      storageClassName: "roboshop-ebs"
+      resources:
+        requests:
+          storage: 2Gi
 ---
 apiVersion: v1
 kind: Service
